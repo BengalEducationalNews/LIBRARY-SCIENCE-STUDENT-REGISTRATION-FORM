@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Science Student Registration - Bengal Educational News</title>
+    <!-- Include jsPDF for automatic PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        header {
+            border-bottom: 3px solid #0056b3;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .header-text h1 {
+            color: #0056b3;
+            margin: 0;
+            font-size: 24px;
+        }
+        .header-text h3 {
+            color: #d9534f;
+            margin: 8px 0;
+            font-size: 16px;
+        }
+        .header-text p {
+            color: #555;
+            font-weight: bold;
+            margin: 5px 0;
+            font-size: 13px;
+        }
+        .contact-box {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .form-title {
+            background: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #444;
+            font-size: 14px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .checkbox-group input {
+            margin-top: 3px;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 100%;
+            margin-top: 25px;
+            transition: 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+        #successModal {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .success-msg {
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .credentials-box {
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+            font-size: 15px;
+        }
+        .download-btn {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-top: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .download-btn:hover {
+            background-color: #004085;
+        }
+        .instruction-footer {
+            margin-top: 15px;
+            color: #d9534f;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-text">
+            <h1>BENGAL EDUCATIONAL NEWS</h1>
+            <h3>"লাইব্রেরিয়ান হওয়ার স্বপ্ন, সঠিক প্রস্তুতির সঙ্গে।"</h3>
+            <p>LIBRARY SCIENCE STUDENT REGISTRATION FORM</p>
+            <p style="color: #333; font-size: 13px;">Online Classes | Study Materials & Mock Tests</p>
+            <div class="contact-box">
+                📱 WHATSAPP NO: 9932948196 &nbsp;|&nbsp; 📧 EMAIL ID: bengaleducationalnews@gmail.com
+            </div>
+        </div>
+    </header>
+
+    <p style="font-size: 14px; color: #555; line-height: 1.6;">
+        <b>Dear Student,</b><br>
+        To enroll in Bengal Educational News’s Library Science Online Classes and Study Materials services, please fill out this form carefully and provide accurate information.<br>
+        The information you provide will be used for admission-related communication, payment verification, and the delivery of educational services.
+    </p>
+
+    <!-- Registration Form connected to Formspree -->
+    <form id="regForm" action="https://formspree.io/f/xnpjvlbd" method="POST">
+        
+        <!-- SECTION A: PERSONAL INFORMATION -->
+        <div class="form-title">SECTION A: PERSONAL INFORMATION</div>
+        
+        <div class="form-group">
+            <label>1. Student's Full Name *</label>
+            <input type="text" id="fullName" name="Student_Name" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group">
+            <label>2. Guardian Name *</label>
+            <input type="text" id="guardianName" name="Guardian_Name" placeholder="Enter guardian's name" required>
+        </div>
+
+        <div class="form-group">
+            <label>3. WhatsApp Mobile Number *</label>
+            <input type="tel" id="mobile" name="WhatsApp_Mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+        </div>
+
+        <div class="form-group">
+            <label>4. Email ID (Optional)</label>
+            <input type="email" id="email" name="Email_ID" placeholder="Enter your email ID">
+        </div>
+
+        <div class="form-group">
+            <label>5. Full Address *</label>
+            <textarea id="address" name="Full_Address" rows="3" placeholder="Enter your complete address" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>6. District *</label>
+            <input type="text" id="district" name="District" placeholder="Enter district name" required>
+        </div>
+
+        <div class="form-group">
+            <label>7. State *</label>
+            <input type="text" id="state" name="State" value="West Bengal" required>
+        </div>
+
+        <div class="form-group">
+            <label>8. Educational Qualification *</label>
+            <input type="text" id="qualification" name="Educational_Qualification" placeholder="e.g., BLIS, MLIS, Graduation" required>
+        </div>
+
+        <div class="form-group">
+            <label>9. ID Proof Number (e.g., Aadhaar Card, Voter ID, PAN Card) *</label>
+            <input type="text" id="idProof" name="ID_Proof_Number" placeholder="Enter ID Proof Number" required>
+        </div>
+
+        <!-- SECTION B: ENROLMENT DETAILS -->
+        <div class="form-title">SECTION B: ENROLMENT DETAILS</div>
+
+        <div class="form-group">
+            <label>10. Which Service Have You Joined? *</label>
+            <select id="service" name="Joined_Service" required>
+                <option value="">Select Service</option>
+                <option value="Library Science Online Class">Library Science Online Class</option>
+                <option value="Library Science Study Materials">Library Science Study Materials</option>
+            </select>
+        </div>
+
+        <!-- SECTION C: PAYMENT DETAILS -->
+        <div class="form-title">SECTION C: PAYMENT DETAILS</div>
+
+        <div class="form-group">
+            <label>11. Service Fee Paid (₹) *</label>
+            <input type="number" id="feePaid" name="Fee_Paid" placeholder="Enter amount paid" required>
+        </div>
+
+        <div class="form-group">
+            <label>12. Payment Date *</label>
+            <input type="date" id="payDate" name="Payment_Date" required>
+        </div>
+
+        <div class="form-group">
+            <label>13. Transaction ID / UTR Number *</label>
+            <input type="text" id="transactionId" name="Transaction_ID" placeholder="Enter UTR / Transaction ID" required>
+        </div>
+
+        <!-- Hidden inputs for auto-generated credentials -->
+        <input type="hidden" name="Generated_User_ID" id="hiddenUserId">
+        <input type="hidden" name="Generated_Password" id="hiddenPassword">
+
+        <!-- SECTION D: STUDENT DECLARATION -->
+        <div class="form-title">SECTION D: STUDENT DECLARATION</div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="decl1" required>
+            <label for="decl1">I confirm that the information provided above is correct.</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="decl2" required>
+            <label for="decl2">I agree to receive class schedules, study materials and educational updates from Bengal Educational News via WhatsApp.</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="decl3" required>
+            <label for="decl3">I understand that paid study materials are for my personal educational use and must not be shared, copied or redistributed without permission.</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="decl4" required>
+            <label for="decl4">I agree to abide by all the rules and regulations of Bengal Educational News Library Science Coaching.</label>
+        </div>
+
+        <button type="submit" class="submit-btn">Submit Registration Form</button>
+    </form>
+
+    <!-- Success Message and PDF / Credentials Section -->
+    <div id="successModal">
+        <div class="success-msg">
+            <b>Bengal Educational News এর পরিবারে আপনাকে স্বাগতম জানাই!</b><br>
+            Your registration form has been submitted successfully. Your student account credentials have been generated below.
+        </div>
+        <div class="credentials-box" id="credDetails"></div>
+        <button type="button" class="download-btn" onclick="generatePDF()">📥 Download Registration Details (PDF)</button>
+        <div class="instruction-footer">
+            * প্রিন্ট বা ডাউনলোড করার পর ডিক্লারেশন অংশে সই (Signature) করে 9932948196 নম্বরে WhatsApp-এ পাঠিয়ে দেবেন।
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px; font-size: 13px; color: #555;">
+        <b>BENGAL EDUCATIONAL NEWS</b><br>
+        <i>Your Preparation, Our Guidance.</i><br>
+        For any admission-related queries, please contact us through WhatsApp: 9932948196
+    </div>
+</div>
+
+<script>
+    let studentData = {};
+
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Gather form data
+        studentData = {
+            fullName: document.getElementById('fullName').value,
+            guardianName: document.getElementById('guardianName').value,
+            mobile: document.getElementById('mobile').value,
+            email: document.getElementById('email').value || 'N/A',
+            address: document.getElementById('address').value,
+            district: document.getElementById('district').value,
+            state: document.getElementById('state').value,
+            qualification: document.getElementById('qualification').value,
+            idProof: document.getElementById('idProof').value,
+            service: document.getElementById('service').value,
+            feePaid: document.getElementById('feePaid').value,
+            payDate: document.getElementById('payDate').value,
+            transactionId: document.getElementById('transactionId').value
+        };
+
+        // Generate automatic User ID & Password
+        let randomNum = Math.floor(1000 + Math.random() * 9000);
+        let userId = "BEN_" + studentData.mobile.slice(-4) + "_" + randomNum;
+        let password = "BEN@" + Math.floor(100 + Math.random() * 900);
+
+        studentData.userId = userId;
+        studentData.password = password;
+
+        // Set values to hidden fields for Formspree submission
+        document.getElementById('hiddenUserId').value = userId;
+        document.getElementById('hiddenPassword').value = password;
+
+        // Submit form data to Formspree via fetch asynchronously
+        let formData = new FormData(this);
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'json' }
+        }).catch(err => console.log('Formspree error:', err));
+
+        // Hide form and show success UI
+        document.getElementById('regForm').style.display = 'none';
+        document.getElementById('successModal').style.display = 'block';
+
+        document.getElementById('credDetails').innerHTML = `
+            👤 <b>Student Name:</b> ${studentData.fullName}<br>
+            📧 <b>Email ID:</b> ${studentData.email}<br>
+            📱 <b>WhatsApp:</b> ${studentData.mobile}<br>
+            🔑 <b>Generated User ID:</b> <span style="color: #0056b3; font-weight: bold;">${userId}</span><br>
+            🔒 <b>Generated Password:</b> <span style="color: #d9534f; font-weight: bold;">${password}</span><br>
+            <i>(Please save these credentials for future login and portal access).</i>
+        `;
+    });
+
+    // Function to generate and download PDF using jsPDF
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(15);
+        doc.setTextColor(0, 86, 179);
+        doc.text("BENGAL EDUCATIONAL NEWS", 105, 15, { align: "center" });
+
+        doc.setFontSize(10);
+        doc.setTextColor(217, 83, 79);
+        doc.text('"লাইব্রেরিয়ান হওয়ার স্বপ্ন, সঠিক প্রস্তুতির সঙ্গে।"', 105, 21, { align: "center" });
+
+        doc.setFontSize(9);
+        doc.setTextColor(85, 85, 85);
+        doc.text("Library Science Student Registration Receipt", 105, 27, { align: "center" });
+        doc.text("WhatsApp No: 9932948196 | Email ID: bengaleducationalnews@gmail.com", 105, 33, { align: "center" });
+
+        doc.setLineWidth(0.5);
+        doc.line(20, 37, 190, 37);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9.5);
+        doc.setTextColor(33, 33, 33);
+
+        let y = 44;
+        const lineHeight = 7;
+
+        const details = [
+            ["Student Full Name:", studentData.fullName],
+            ["Guardian Name:", studentData.guardianName],
+            ["WhatsApp Mobile:", studentData.mobile],
+            ["Email ID:", studentData.email],
+            ["Full Address:", studentData.address],
+            ["District:", studentData.district],
+            ["State:", studentData.state],
+            ["Educational Qualification:", studentData.qualification],
+            ["ID Proof Number:", studentData.idProof],
+            ["Joined Service:", studentData.service],
+            ["Fee Paid:", "Rs. " + studentData.feePaid],
+            ["Payment Date:", studentData.payDate],
+            ["Transaction ID / UTR:", studentData.transactionId],
+            ["Assigned User ID:", studentData.userId],
+            ["Assigned Password:", studentData.password]
+        ];
+
+        details.forEach(item => {
+            doc.setFont("helvetica", "bold");
+            doc.text(item[0], 20, y);
+            doc.setFont("helvetica", "normal");
+            doc.text(item[1], 75, y);
+            y += lineHeight;
+        });
+
+        // SECTION D: STUDENT DECLARATION AT THE BOTTOM
+        y += 4;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(10);
+        doc.setTextColor(0, 86, 179);
+        doc.text("STUDENT DECLARATION:", 20, y);
+        
+        y += 5;
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8.5);
+        doc.setTextColor(50, 50, 50);
+
+        const declarations = [
+            "1. I confirm that the information provided above is correct.",
+            "2. I agree to receive class schedules, study materials and updates via WhatsApp.",
+            "3. I understand that paid study materials are for personal educational use only.",
+            "4. I agree to abide by all the rules and regulations of Bengal Educational News."
+        ];
+
+        declarations.forEach(dec => {
+            doc.text(dec, 20, y);
+            y += 5;
+        });
+
+        // Signature Section
+        y += 6;
+        doc.setFont("helvetica", "bold");
+        doc.text("Signature of Student: ________________________", 20, y);
+
+        y += 6;
+        doc.setFontSize(8);
+        doc.setTextColor(217, 83, 79);
+        doc.text("Note: Signature kore 9932948196 e no pathie diben.", 20, y);
+
+        doc.save("Bengal_Educational_News_Registration.pdf");
+    }
+</script>
+
+</body>
+</html>
